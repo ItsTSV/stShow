@@ -21,14 +21,11 @@ df_filtered = df[(df["island"].isin(selected_islands)) & (df["sex"].isin(selecte
 # Main EDA content
 st.title("Exploratory Data Analysis")
 st.markdown("""
-The dataset we are working with is called **"Palmer Penguins"**.
+This page shows an exploratory data analysis on the Palmer Penguins dataset, which contains measurements of 
+penguins observed on three islands in the Palmer Archipelago, Antarctica.
 
-It’s the modern alternative to the classic Iris dataset. It contains data for **344 penguins** from **3 species** 
-(Adélie, Chinstrap, and Gentoo) observed on **3 islands** in the Palmer Archipelago, Antarctica. 
-
-It's a perfect playground for EDA because it combines:
-* **Numeric data:** Bill length, flipper length, and body mass.
-* **Categorical data:** Species, island, and sex.
+It's purpose is to show how to use various Streamlit components and layouts to create an interactive EDA page. The
+visualisations are dynamic and will update based on the filters selected in the sidebar.
 """)
 
 # Use components to perform EDA
@@ -46,14 +43,24 @@ with c1:
     t1, t2, t3 = st.tabs(["Species", "Islands", "Sexes"])
     with t1:
         fig_c, ax_c = plt.subplots()
-        sns.countplot(x=df_filtered["species"], palette="Set2")
+        sns.countplot(
+            x=df_filtered["species"],
+            hue=df_filtered["species"],
+            palette="Set2",
+            legend=False,
+        )
         sns.despine(left=True, bottom=True)
         ax_c.set_xlabel("")
         ax_c.set_ylabel("Count")
         st.pyplot(fig_c)
     with t2:
         fig_c, ax_c = plt.subplots()
-        sns.countplot(x=df_filtered["island"], palette="Set2")
+        sns.countplot(
+            x=df_filtered["island"],
+            hue=df_filtered["island"],
+            palette="Set2",
+            legend=False,
+        )
         sns.despine(left=True, bottom=True)
         ax_c.set_xlabel("")
         ax_c.set_ylabel("Count")
@@ -61,7 +68,9 @@ with c1:
         st.pyplot(fig_c)
     with t3:
         fig_c, ax_c = plt.subplots()
-        sns.countplot(x=df_filtered["sex"], palette="Set2")
+        sns.countplot(
+            x=df_filtered["sex"], hue=df_filtered["sex"], palette="Set2", legend=False
+        )
         sns.despine(left=True, bottom=True)
         ax_c.set_xlabel("")
         ax_c.set_ylabel("Count")
@@ -121,15 +130,28 @@ st.subheader("Distribution by Species")
 c1, c2 = st.columns(2, gap="large")
 with c1:
     fig, ax = plt.subplots()
-    sns.boxplot(data=df_filtered, x="species", y="body_mass_g", palette="Set2")
+    sns.boxplot(
+        data=df_filtered,
+        x="species",
+        y="body_mass_g",
+        hue="species",
+        palette="Set2",
+        legend=False,
+    )
     sns.despine(left=True, bottom=True)
     ax.set_xlabel("")
     ax.set_ylabel("Body Mass (g)")
     st.pyplot(fig)
-
 with c2:
     fig, ax = plt.subplots()
-    sns.boxplot(data=df_filtered, x="species", y="flipper_length_mm", palette="Set2")
+    sns.boxplot(
+        data=df_filtered,
+        x="species",
+        y="flipper_length_mm",
+        hue="species",
+        palette="Set2",
+        legend=False,
+    )
     sns.despine(left=True, bottom=True)
     ax.set_xlabel("")
     ax.set_ylabel("Flipper Length (mm)")

@@ -1,5 +1,6 @@
 import streamlit as st
 
+
 # Page settings
 st.set_page_config(page_title="IT: Streamlit Showcase", layout="wide")
 
@@ -19,5 +20,6 @@ def show_home():
 home_page = st.Page(show_home, title="Home Page", default=True)
 eda_page = st.Page("eda.py", title="Exploratory Data Analysis")
 model_page = st.Page("model.py", title="Model Usage")
-pg = st.navigation([home_page, eda_page, model_page])
+dashboard_page = st.Page("dashboard.py", title="Dashboard")
+pg = st.navigation([home_page, eda_page, dashboard_page, model_page])
 pg.run()
