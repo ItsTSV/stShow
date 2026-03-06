@@ -4,6 +4,36 @@ from PIL import Image
 import io
 
 
+# Auth
+def check_password():
+    def password_entered():
+        if st.session_state["password_input"] == st.secrets["password"]:
+            st.session_state["password_correct"] = True
+            del st.session_state["password_input"]
+        else:
+            st.session_state["password_correct"] = False
+
+    if st.session_state.get("password_correct", False):
+        return True
+
+    st.text_input(
+        "Please enter the password to access this model:",
+        type="password",
+        on_change=password_entered,
+        key="password_input"
+    )
+
+    if "password_correct" in st.session_state and not st.session_state["password_correct"]:
+        st.error("Incorrect password.")
+
+    return False
+
+
+# Password input
+if not check_password():
+    st.stop()
+
+
 # Caching
 @st.cache_data
 def process_image(img_bytes):
